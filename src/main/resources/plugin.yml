@@ -1,0 +1,6 @@
+name: AntiAutoFishing
+version: 1.2.2
+api-version: 1.13
+main: com.codingguru.autofish.AntiAutoFish
+authors: [CodingGuru]
+commands:

@@ -1,0 +1,52 @@
+# This is the max distance between the players last fishing location to count towards their anti fish total
+# If disabled then it will only count the exact same spot (including mouse movement)
+
+MAX_FISH_DISTANCE: 
+  ENABLED: false
+  DISTANCE: 3 # The amount of blocks between last fishing location
+
+# Fishing cooldown is giving a player a temporary cooldown for the amount of anti fish total
+
+FISHING_COOLDOWN: 
+  ENABLED: true
+  LENGTH: -1 # This is in seconds
+  EXPLOIT_NUMBERS: # This is the "anti fish total" (the amount of times they have fished from the same spot)
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  
+# Fishing messages is giving a player a warning message for the amount of anti fish total
+  
+FISHING_MESSAGES:
+  ENABLED: true
+  MESSAGE: "&cPlease move around while fishing." # This is the message they will receive
+  EXPLOIT_NUMBERS: # This is the "anti fish total" (the amount of times they have fished from the same spot)
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9 
+  - 10
+  
+# This will stop a player from fishing on these anti fish totals
+ 
+DISALLOW_FISH:
+  ENABLED: true
+  EXPLOIT_NUMBERS:  # This is the "anti fish total" (the amount of times they have fished from the same spot)
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9 
+  - 10
+  
+# This will kick a player for fishing in the same spot too many times
+ 
+KICKING_PLAYERS:
+  ENABLED: true
+  MESSAGE: "&cYou were detected for auto fishing." # This is the message they will receive
+  EXPLOIT_NUMBERS:  # This is the "anti fish total" (the amount of times they have fished from the same spot)
+  - 15
