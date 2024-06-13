@@ -31,9 +31,9 @@ public class PlayerFishingData {
 			return false;
 		}
 
-		if (AntiAutoFish.getInstance().getConfig().getBoolean("MAX_FISH_DISTANCE.ENABLED")
+		if (AntiAutoFish.getInstance().getConfig().getBoolean("max-fish-distance.enabled")
 				&& getLocation().distance(player.getLocation()) > AntiAutoFish.getInstance().getConfig()
-						.getInt("MAX_FISH_DISTANCE.DISTANCE")) {
+						.getInt("max-fish-distance.distance")) {
 			PlayerHandler.getInstance().removeFishingData(player.getUniqueId());
 			return false;
 		} else {
@@ -45,27 +45,27 @@ public class PlayerFishingData {
 
 		setExploitNumber(getExploitNumber() + 1);
 
-		if (AntiAutoFish.getInstance().getConfig().getBoolean("FISHING_COOLDOWN.ENABLED") && AntiAutoFish.getInstance()
-				.getConfig().getIntegerList("FISHING_COOLDOWN.EXPLOIT_NUMBERS").contains(getExploitNumber())) {
-			long total = 1000 * AntiAutoFish.getInstance().getConfig().getInt("FISHING_COOLDOWN.LENGTH");
+		if (AntiAutoFish.getInstance().getConfig().getBoolean("fishing-cooldown.enabled") && AntiAutoFish.getInstance()
+				.getConfig().getIntegerList("fishing-cooldown.exploit-numbers").contains(getExploitNumber())) {
+			long total = 1000 * AntiAutoFish.getInstance().getConfig().getInt("fishing-cooldown.length");
 			setNextUse(System.currentTimeMillis() + total);
 		}
 
-		if (AntiAutoFish.getInstance().getConfig().getBoolean("FISHING_MESSAGES.ENABLED") && AntiAutoFish.getInstance()
-				.getConfig().getIntegerList("FISHING_MESSAGES.EXPLOIT_NUMBERS").contains(getExploitNumber())) {
+		if (AntiAutoFish.getInstance().getConfig().getBoolean("fishing-messages.enabled") && AntiAutoFish.getInstance()
+				.getConfig().getIntegerList("fishing-messages.exploit-numbers").contains(getExploitNumber())) {
 			player.sendMessage(
-					ColorUtil.replace(AntiAutoFish.getInstance().getConfig().getString("FISHING_MESSAGES.MESSAGE")));
+					ColorUtil.replace(AntiAutoFish.getInstance().getConfig().getString("fishing-messages.message")));
 		}
 
-		if (AntiAutoFish.getInstance().getConfig().getBoolean("DISALLOW_FISH.ENABLED") && AntiAutoFish.getInstance()
-				.getConfig().getIntegerList("DISALLOW_FISH.EXPLOIT_NUMBERS").contains(getExploitNumber())) {
+		if (AntiAutoFish.getInstance().getConfig().getBoolean("disallow-fish.enabled") && AntiAutoFish.getInstance()
+				.getConfig().getIntegerList("disallow-fish.exploit-numbers").contains(getExploitNumber())) {
 			return true;
 		}
 
-		if (AntiAutoFish.getInstance().getConfig().getBoolean("KICKING_PLAYERS.ENABLED") && AntiAutoFish.getInstance()
-				.getConfig().getIntegerList("KICKING_PLAYERS.EXPLOIT_NUMBERS").contains(getExploitNumber())) {
+		if (AntiAutoFish.getInstance().getConfig().getBoolean("kicking-players.enabled") && AntiAutoFish.getInstance()
+				.getConfig().getIntegerList("kicking-players.exploit-numbers").contains(getExploitNumber())) {
 			player.kickPlayer(
-					ColorUtil.replace(AntiAutoFish.getInstance().getConfig().getString("KICKING_PLAYERS.MESSAGE")));
+					ColorUtil.replace(AntiAutoFish.getInstance().getConfig().getString("kicking-players.message")));
 			return false;
 		}
 
