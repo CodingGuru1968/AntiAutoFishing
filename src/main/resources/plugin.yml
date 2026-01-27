@@ -1,6 +1,7 @@
 name: AntiAutoFishing
-version: 1.3.3
+version: 1.4
 api-version: 1.13
 main: com.codingguru.autofish.AntiAutoFish
 authors: [CodingGuru]
+folia-supported: true
 commands:
