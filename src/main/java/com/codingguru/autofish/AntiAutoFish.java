@@ -3,6 +3,8 @@ package com.codingguru.autofish;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.codingguru.autofish.listeners.InventoryClick;
+import com.codingguru.autofish.listeners.InventoryClose;
 import com.codingguru.autofish.listeners.PlayerFish;
 import com.codingguru.autofish.listeners.PlayerQuit;
 import com.codingguru.autofish.util.ConsoleUtil;
@@ -20,6 +22,8 @@ public class AntiAutoFish extends JavaPlugin {
 
 		Bukkit.getPluginManager().registerEvents(new PlayerFish(), this);
 		Bukkit.getPluginManager().registerEvents(new PlayerQuit(), this);
+		Bukkit.getPluginManager().registerEvents(new InventoryClose(this), this);
+		Bukkit.getPluginManager().registerEvents(new InventoryClick(this), this);
 	}
 
 	public static AntiAutoFish getInstance() {

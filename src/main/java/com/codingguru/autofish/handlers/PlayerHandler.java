@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import org.bukkit.Location;
 
-import com.codingguru.autofish.data.PlayerFishingData;
+import com.codingguru.autofish.model.PlayerFishingData;
 
 public class PlayerHandler {
 

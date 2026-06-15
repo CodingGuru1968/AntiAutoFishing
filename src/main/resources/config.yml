@@ -8,13 +8,24 @@ check-for-updates: true # Check for new plugin updates
 # If disabled then it will only count the exact same spot (including mouse movement)
 
 max-fish-distance: 
-  enabled: false
+  enabled: true
   distance: 3 # The amount of blocks between last fishing location
+  
+# Player captcha appears where they need to click on the emerald to continue
+
+fishing-captcha:
+  enabled: true
+  captcha-item: 'EMERALD' # Type of item they need to click on
+  inventory-name: "Click the emerald to verify!"
+  inventory-size: 36
+  success-message: '&aYou have successfully verified.'
+  exploit-numbers:
+  - 5
 
 # Fishing cooldown is giving a player a temporary cooldown for the amount of anti fish total
 
 fishing-cooldown: 
-  enabled: true
+  enabled: false
   length: -1 # This is in seconds
   exploit-numbers: # This is the "anti fish total" (the amount of times they have fished from the same spot)
   - 5
@@ -27,7 +38,7 @@ fishing-cooldown:
 # Fishing messages is giving a player a warning message for the amount of anti fish total
   
 fishing-messages:
-  enabled: true
+  enabled: false
   message: "&cPlease move around while fishing." # This is the message they will receive
   exploit-numbers: # This is the "anti fish total" (the amount of times they have fished from the same spot)
   - 5
@@ -40,7 +51,7 @@ fishing-messages:
 # This will stop a player from fishing on these anti fish totals
  
 disallow-fish:
-  enabled: true
+  enabled: false
   exploit-numbers:  # This is the "anti fish total" (the amount of times they have fished from the same spot)
   - 5
   - 6
@@ -52,7 +63,7 @@ disallow-fish:
 # This will kick a player for fishing in the same spot too many times
  
 kicking-players:
-  enabled: true
+  enabled: false
   message: "&cYou were detected for auto fishing." # This is the message they will receive
   exploit-numbers:  # This is the "anti fish total" (the amount of times they have fished from the same spot)
   - 15

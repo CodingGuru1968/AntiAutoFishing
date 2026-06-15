@@ -6,6 +6,7 @@ import org.bukkit.command.ConsoleCommandSender;
 
 import com.codingguru.autofish.AntiAutoFish;
 
+@SuppressWarnings("deprecation")
 public class ConsoleUtil {
 
 	private final static ConsoleCommandSender CONSOLE = Bukkit.getServer().getConsoleSender();

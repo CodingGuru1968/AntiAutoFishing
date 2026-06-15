@@ -1,15 +1,16 @@
 package com.codingguru.autofish.listeners;
 
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 
-import com.codingguru.autofish.data.PlayerFishingData;
 import com.codingguru.autofish.handlers.PlayerHandler;
+import com.codingguru.autofish.model.PlayerFishingData;
 
 public class PlayerFish implements Listener {
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerFish(PlayerFishEvent e) {
 		if (e.isCancelled())
 			return;

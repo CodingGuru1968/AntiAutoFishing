@@ -12,6 +12,7 @@ public class UpdateUtil {
 
 	private final int RESOURCE_ID = 116664;
 
+	@SuppressWarnings("deprecation")
 	public boolean hasNewUpdate() {
 		if (!AntiAutoFish.getInstance().getConfig().getBoolean("check-for-updates", true)) {
 			return false;
