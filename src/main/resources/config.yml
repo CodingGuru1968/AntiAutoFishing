@@ -19,6 +19,7 @@ fishing-captcha:
   inventory-name: "Click the emerald to verify!"
   inventory-size: 36
   success-message: '&aYou have successfully verified.'
+  closed-inv-message: '&cYou must complete the captcha to continue.'
   exploit-numbers:
   - 5
 
