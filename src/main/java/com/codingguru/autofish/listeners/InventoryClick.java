@@ -26,7 +26,7 @@ public class InventoryClick implements Listener {
 		if (!(e.getWhoClicked() instanceof Player))
 			return;
 
-		String configTitle = plugin.getConfig().getString("fishing-captcha.inventory-name");
+		String configTitle = plugin.getConfig().getString("fishing-captcha.inventory-name", "Verify!");
 
 		if (!e.getView().getTitle().equals(configTitle))
 			return;
@@ -39,8 +39,8 @@ public class InventoryClick implements Listener {
 		Material targetItem = CaptchaHandler.getInstance().getTargetItem();
 
 		if (clickedItem != null && clickedItem.getType() == targetItem) {
-			player.sendMessage(ColorUtil
-					.replace(AntiAutoFish.getInstance().getConfig().getString("fishing-captcha.success-message")));
+			player.sendMessage(ColorUtil.replace(AntiAutoFish.getInstance().getConfig()
+					.getString("fishing-captcha.success-message", "You have completed the captcha!")));
 			CaptchaHandler.getInstance().completeCaptcha(player);
 		}
 	}

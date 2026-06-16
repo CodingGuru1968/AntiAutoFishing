@@ -22,10 +22,14 @@ public class CaptchaHandler {
 	@SuppressWarnings("deprecation")
 	public void openCaptcha(Player player) {
 		AntiAutoFish plugin = AntiAutoFish.getInstance();
+		String title = plugin.getConfig().getString("fishing-captcha.inventory-name", "Verify!");
+
+		if (player.getOpenInventory() != null && player.getOpenInventory().getTitle().equalsIgnoreCase(title)
+				&& activeCaptchas.contains(player.getUniqueId()))
+			return;
 
 		Material targetItem = getTargetItem();
 		int size = plugin.getConfig().getInt("fishing-captcha.inventory-size", 36);
-		String title = plugin.getConfig().getString("fishing-captcha.inventory-name", "Verify!");
 		Inventory inv = Bukkit.createInventory(null, size, title);
 
 		int correctSlot = ThreadLocalRandom.current().nextInt(size);
@@ -55,7 +59,7 @@ public class CaptchaHandler {
 	public boolean hasPendingCaptcha(Player player) {
 		return activeCaptchas.contains(player.getUniqueId());
 	}
-	
+
 	public void removeCaptcha(Player player) {
 		activeCaptchas.remove(player.getUniqueId());
 	}

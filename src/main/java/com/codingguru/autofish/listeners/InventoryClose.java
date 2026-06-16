@@ -33,8 +33,8 @@ public class InventoryClose implements Listener {
 			@Override
 			public void run() {
 				CaptchaHandler.getInstance().openCaptcha(player);
-				player.sendMessage(ColorUtil.replace(
-						AntiAutoFish.getInstance().getConfig().getString("fishing-captcha.closed-inv-message")));
+				player.sendMessage(ColorUtil.replace(AntiAutoFish.getInstance().getConfig().getString(
+						"fishing-captcha.closed-inv-message", "You must complete the captcha to continue!")));
 			}
 		}.runTaskLater(plugin, 1L);
 	}
