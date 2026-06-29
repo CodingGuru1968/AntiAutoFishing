@@ -6,7 +6,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Scanner;
 
-import com.codingguru.autofish.AntiAutoFish;
+import com.codingguru.autofish.AntiAutoFishing;
 
 public class UpdateUtil {
 
@@ -14,11 +14,11 @@ public class UpdateUtil {
 
 	@SuppressWarnings("deprecation")
 	public boolean hasNewUpdate() {
-		if (!AntiAutoFish.getInstance().getConfig().getBoolean("check-for-updates", true)) {
+		if (!AntiAutoFishing.getInstance().getConfig().getBoolean("check-for-updates", true)) {
 			return false;
 		}
 
-		String currentVersion = AntiAutoFish.getInstance().getDescription().getVersion();
+		String currentVersion = AntiAutoFishing.getInstance().getDescription().getVersion();
 
 		try (InputStream inputStream = new URI("https://api.spigotmc.org/legacy/update.php?resource=" + RESOURCE_ID)
 				.toURL().openStream(); Scanner scanner = new Scanner(inputStream)) {

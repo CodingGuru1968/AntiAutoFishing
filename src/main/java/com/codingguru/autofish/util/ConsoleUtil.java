@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 
-import com.codingguru.autofish.AntiAutoFish;
+import com.codingguru.autofish.AntiAutoFishing;
 
 @SuppressWarnings("deprecation")
 public class ConsoleUtil {
@@ -16,7 +16,7 @@ public class ConsoleUtil {
 		CONSOLE.sendMessage(ChatColor.GREEN + "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
 		CONSOLE.sendMessage(ChatColor.GREEN + "Plugin Name: " + ChatColor.YELLOW + "AntiAutoFishing");
 		CONSOLE.sendMessage(ChatColor.GREEN + "Plugin Version: " + ChatColor.YELLOW
-				+ AntiAutoFish.getInstance().getDescription().getVersion());
+				+ AntiAutoFishing.getInstance().getDescription().getVersion());
 		CONSOLE.sendMessage(ChatColor.GREEN + "Server Version: " + ChatColor.YELLOW + Bukkit.getBukkitVersion());
 		CONSOLE.sendMessage(ChatColor.GREEN + "Author: " + ChatColor.YELLOW + "CodingGuru");
 		CONSOLE.sendMessage(ChatColor.GREEN + "Discord: " + ChatColor.YELLOW + "https://discord.gg/CbJxH5NPvX");

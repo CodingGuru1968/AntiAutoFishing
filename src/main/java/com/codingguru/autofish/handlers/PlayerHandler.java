@@ -4,32 +4,30 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.bukkit.Location;
-
-import com.codingguru.autofish.model.PlayerFishingData;
+import com.codingguru.autofish.model.FishingData;
 
 public class PlayerHandler {
 
 	private final static PlayerHandler INSTANCE = new PlayerHandler();
-	private Map<UUID, PlayerFishingData> cachedData = new HashMap<UUID, PlayerFishingData>();
-	
-	public PlayerFishingData getFishingData(UUID uuid, Location location) {
-		if (cachedData.containsKey(uuid)) {
-			return cachedData.get(uuid);
+	private final Map<UUID, FishingData> fishingData = new HashMap<UUID, FishingData>();
+
+	public FishingData getFishingData(UUID uuid) {
+		if (fishingData.containsKey(uuid)) {
+			return fishingData.get(uuid);
 		}
-		return new PlayerFishingData(uuid, location);	
+		return new FishingData(uuid);	
 	}
 	
 	public boolean hasFishingData(UUID uuid) {
-		return cachedData.containsKey(uuid);
+		return fishingData.containsKey(uuid);
 	}
 	
-	public void addFishingData(UUID uuid, PlayerFishingData data) {
-		cachedData.put(uuid, data);
+	public void addFishingData(UUID uuid, FishingData data) {
+		fishingData.put(uuid, data);
 	}
 	
 	public void removeFishingData(UUID uuid) {
-		cachedData.remove(uuid);
+		fishingData.remove(uuid);
 	}
 
 	public static PlayerHandler getInstance() {

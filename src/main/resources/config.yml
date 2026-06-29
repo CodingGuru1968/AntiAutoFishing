@@ -1,70 +1,21 @@
-# General Settings
+# Check for plugin updates on startup
+check-for-updates: true
 
-check-for-updates: true # Check for new plugin updates
-
-# AntiFishing Settings
-
-# This is the max distance between the players last fishing location to count towards their anti fish total
-# If disabled then it will only count the exact same spot (including mouse movement)
-
-max-fish-distance: 
-  enabled: true
-  distance: 3 # The amount of blocks between last fishing location
-  
-# Player captcha appears where they need to click on the emerald to continue
+# The Captcha Settings
 
 fishing-captcha:
-  enabled: true
-  captcha-item: 'EMERALD' # Type of item they need to click on
-  inventory-name: "Click the emerald to verify!"
+  # Amount of times a player can fish until a captcha appears
+  fish-caught-until-captcha: 5
+
+  # The item the player must click to verify
+  captcha-item: 'EMERALD'
+  
+  # The filler item for the inventory (leave blank for no item)
+  filler-item: ''
+
+  # UI settings
+  inventory-name: "Security Check: Click the Emerald!"
   inventory-size: 36
-  success-message: '&aYou have successfully verified.'
-  closed-inv-message: '&cYou must complete the captcha to continue.'
-  exploit-numbers:
-  - 5
-
-# Fishing cooldown is giving a player a temporary cooldown for the amount of anti fish total
-
-fishing-cooldown: 
-  enabled: false
-  length: -1 # This is in seconds
-  exploit-numbers: # This is the "anti fish total" (the amount of times they have fished from the same spot)
-  - 5
-  - 6
-  - 7
-  - 8
-  - 9
-  - 10
   
-# Fishing messages is giving a player a warning message for the amount of anti fish total
-  
-fishing-messages:
-  enabled: false
-  message: "&cPlease move around while fishing." # This is the message they will receive
-  exploit-numbers: # This is the "anti fish total" (the amount of times they have fished from the same spot)
-  - 5
-  - 6
-  - 7
-  - 8
-  - 9 
-  - 10
-  
-# This will stop a player from fishing on these anti fish totals
- 
-disallow-fish:
-  enabled: false
-  exploit-numbers:  # This is the "anti fish total" (the amount of times they have fished from the same spot)
-  - 5
-  - 6
-  - 7
-  - 8
-  - 9 
-  - 10
-  
-# This will kick a player for fishing in the same spot too many times
- 
-kicking-players:
-  enabled: false
-  message: "&cYou were detected for auto fishing." # This is the message they will receive
-  exploit-numbers:  # This is the "anti fish total" (the amount of times they have fished from the same spot)
-  - 15
+  # How many times they can fail the captcha before being kicked
+  max-failed-attempts: 3

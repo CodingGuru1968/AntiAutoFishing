@@ -1,6 +1,7 @@
 package com.codingguru.autofish.handlers;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
@@ -11,24 +12,26 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import com.codingguru.autofish.AntiAutoFish;
+import com.codingguru.autofish.AntiAutoFishing;
 import com.codingguru.autofish.util.ConsoleUtil;
+import com.codingguru.autofish.util.XMaterialUtil;
 
 public class CaptchaHandler {
 
 	private final static CaptchaHandler INSTANCE = new CaptchaHandler();
-	private static final Set<UUID> activeCaptchas = new HashSet<>();
+	private final Set<UUID> activeCaptchas = new HashSet<>();
 
 	@SuppressWarnings("deprecation")
 	public void openCaptcha(Player player) {
-		AntiAutoFish plugin = AntiAutoFish.getInstance();
-		String title = plugin.getConfig().getString("fishing-captcha.inventory-name", "Verify!");
+		AntiAutoFishing plugin = AntiAutoFishing.getInstance();
+		String title = plugin.getConfig().getString("fishing-captcha.inventory-name", "Verify: Click the Emerald");
 
 		if (player.getOpenInventory() != null && player.getOpenInventory().getTitle().equalsIgnoreCase(title)
 				&& activeCaptchas.contains(player.getUniqueId()))
 			return;
 
-		Material targetItem = getTargetItem();
+		Material targetItem = getTargetItem().parseMaterial();
+		Material fillerItem = getFillerItem().parseMaterial();
 		int size = plugin.getConfig().getInt("fishing-captcha.inventory-size", 36);
 		Inventory inv = Bukkit.createInventory(null, size, title);
 
@@ -36,24 +39,35 @@ public class CaptchaHandler {
 		activeCaptchas.add(player.getUniqueId());
 
 		for (int i = 0; i < size; i++) {
-			inv.setItem(i, new ItemStack(i == correctSlot ? targetItem : Material.AIR));
+			inv.setItem(i, new ItemStack(i == correctSlot ? targetItem : fillerItem));
 		}
 
 		player.openInventory(inv);
 	}
 
-	public Material getTargetItem() {
-		String itemName = AntiAutoFish.getInstance().getConfig().getString("fishing-captcha.captcha-item", "EMERALD");
-		Material targetItem;
+	public XMaterialUtil getTargetItem() {
+		String itemName = AntiAutoFishing.getInstance().getConfig().getString("fishing-captcha.captcha-item",
+				"EMERALD");
+		Optional<XMaterialUtil> xMat = XMaterialUtil.matchXMaterial(itemName);
 
-		try {
-			targetItem = Material.valueOf(itemName.toUpperCase());
-		} catch (IllegalArgumentException e) {
+		return xMat.orElseGet(() -> {
 			ConsoleUtil.warning("Invalid item type in config: " + itemName + ". Defaulting to EMERALD.");
-			targetItem = Material.EMERALD;
-		}
+			return XMaterialUtil.EMERALD;
+		});
+	}
 
-		return targetItem;
+	public XMaterialUtil getFillerItem() {
+		String itemName = AntiAutoFishing.getInstance().getConfig().getString("fishing-captcha.filler-item", "AIR");
+
+		if (itemName == null || itemName.isEmpty())
+			return XMaterialUtil.AIR;
+
+		Optional<XMaterialUtil> xMat = XMaterialUtil.matchXMaterial(itemName);
+
+		return xMat.orElseGet(() -> {
+			ConsoleUtil.warning("Invalid item type in config: " + itemName + ". Defaulting to AIR.");
+			return XMaterialUtil.AIR;
+		});
 	}
 
 	public boolean hasPendingCaptcha(Player player) {

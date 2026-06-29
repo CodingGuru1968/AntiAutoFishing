@@ -1,15 +1,17 @@
 package com.codingguru.autofish.listeners;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import com.codingguru.autofish.AntiAutoFish;
 import com.codingguru.autofish.handlers.CaptchaHandler;
-import com.codingguru.autofish.util.ColorUtil;
+import com.codingguru.autofish.handlers.PlayerHandler;
+import com.codingguru.autofish.model.FishingData;
+import com.codingguru.autofish.util.MessagesUtil;
 
 public class InventoryClose implements Listener {
 
@@ -19,9 +21,10 @@ public class InventoryClose implements Listener {
 		this.plugin = plugin;
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
-		if (!(e.getPlayer() instanceof Player))
+		if (e.getPlayer().getType() != EntityType.PLAYER)
 			return;
 
 		Player player = (Player) e.getPlayer();
@@ -29,13 +32,21 @@ public class InventoryClose implements Listener {
 		if (!CaptchaHandler.getInstance().hasPendingCaptcha(player))
 			return;
 
-		new BukkitRunnable() {
-			@Override
-			public void run() {
+		String configTitle = plugin.getConfig().getString("fishing-captcha.inventory-name",
+				"Verify: Click the Emerald");
+
+		if (!e.getView().getTitle().equals(configTitle))
+			return;
+
+		FishingData fishingData = PlayerHandler.getInstance().getFishingData(e.getPlayer().getUniqueId());
+		fishingData.setFailedCaptchas(fishingData.getFailedCaptchas() + 1);
+		fishingData.checkForFailedCaptcha(player);
+
+		Bukkit.getScheduler().runTaskLater(plugin, () -> {
+			if (player.isOnline() && CaptchaHandler.getInstance().hasPendingCaptcha(player)) {
 				CaptchaHandler.getInstance().openCaptcha(player);
-				player.sendMessage(ColorUtil.replace(AntiAutoFish.getInstance().getConfig().getString(
-						"fishing-captcha.closed-inv-message", "You must complete the captcha to continue!")));
+				MessagesUtil.sendMessage(player, MessagesUtil.CAPTCHA_CLOSED_INV.toString());
 			}
-		}.runTaskLater(plugin, 1L);
+		}, 1L);
 	}
 }
